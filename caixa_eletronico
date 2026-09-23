@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+// variaveis
+int main() {
+    float saldo = 1000.00;
+    float saque;
+    int valido;
+    char continuar;
+
+    int n100, n50, n20, n10, n5;
+    int resto;
+
+    do {
+        // Laço de validação do valor digitado
+        do {
+            printf("Saldo disponivel: R$ %.2f\n", saldo);
+            printf("Informe o valor do saque: ");
+            scanf("%f", &saque);
+
+            valido = 1;
+
+            // 1 e 3) Verifica se o valor digitado e multiplo de 5
+            if ((int)saque % 5 != 0) {
+                printf("Valor invalido! Digite um valor multiplo de 5.\n\n");
+                valido = 0;
+            }
+            // 2) Verifica se ha saldo suficiente
+            else if (saque > saldo) {
+                printf("Saldo insuficiente! Digite outro valor.\n\n");
+                valido = 0;
+            }
+
+        } while (valido == 0); // 7) Se for False, volta a pedir o valor
+
+        // 4 e 5) Se for True, faz a contagem das notas de 100, 50, 20, 10 e 5
+        resto = (int) saque;
+
+        n100 = resto / 100;
+        resto = resto % 100;
+
+        n50 = resto / 50;
+        resto = resto % 50;
+
+        n20 = resto / 20;
+        resto = resto % 20;
+
+        n10 = resto / 10;
+        resto = resto % 10;
+
+        n5 = resto / 5;
+        resto = resto % 5;
+
+        saldo = saldo - saque;
+
+        // 6) Imprime o resultado obtido
+        printf("\nSaque de R$ %.2f realizado com sucesso!\n", saque);
+        printf("Notas de R$100: %d\n", n100);
+        printf("Notas de R$50:  %d\n", n50);
+        printf("Notas de R$20:  %d\n", n20);
+        printf("Notas de R$10:  %d\n", n10);
+        printf("Notas de R$5:   %d\n", n5);
+        printf("Novo saldo: R$ %.2f\n\n", saldo);
+
+        // Pergunta se o usuario quer fazer mais um saque
+        printf("Deseja realizar outro saque? (s/n): ");
+        scanf(" %c", &continuar);
+        printf("\n");
+
+    } while (continuar == 's' || continuar == 'S');
+
+    printf("Encerrando o sistema. Saldo final: R$ %.2f\n", saldo);
+
+    return 0;
+}
